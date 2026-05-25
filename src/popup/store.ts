@@ -23,7 +23,6 @@ import type { SessionsPayload } from "~/shared/types/session";
 
 interface PlayerStore {
   sessions: SessionsPayload;
-  navDirection: -1 | 0 | 1;
   hydrated: boolean;
   loading: boolean;
   error: string | null;
@@ -165,7 +164,6 @@ export const usePlayerStore = create<PlayerStore>((set, get) => {
 
   return {
     sessions: defaultSessions(),
-    navDirection: 0,
     hydrated: false,
     loading: false,
     error: null,
@@ -225,7 +223,7 @@ export const usePlayerStore = create<PlayerStore>((set, get) => {
 
     async selectNextSession() {
       debugLog("popup", "header NEXT → switch session tab");
-      set({ navDirection: 1, error: null });
+      set({ error: null });
       try {
         const payload = await sendToRuntime(
           { type: "NEXT_SESSION" },
@@ -235,14 +233,12 @@ export const usePlayerStore = create<PlayerStore>((set, get) => {
         applySessions(payload);
       } catch (e) {
         if (!session.signal.aborted) set({ error: errMsg(e) });
-      } finally {
-        set({ navDirection: 0 });
       }
     },
 
     async selectPreviousSession() {
       debugLog("popup", "header PREVIOUS → switch session tab");
-      set({ navDirection: -1, error: null });
+      set({ error: null });
       try {
         const payload = await sendToRuntime(
           { type: "PREVIOUS_SESSION" },
@@ -252,8 +248,6 @@ export const usePlayerStore = create<PlayerStore>((set, get) => {
         applySessions(payload);
       } catch (e) {
         if (!session.signal.aborted) set({ error: errMsg(e) });
-      } finally {
-        set({ navDirection: 0 });
       }
     },
 

@@ -1,8 +1,21 @@
 import { defineConfig } from "wxt";
 
+/** Sizes used for toolbar/browser_action icons (Firefox picks ~32–48px when pinned). */
+const TOOLBAR_ICONS: Record<string, string> = {
+  48: "icon/48.png",
+  64: "icon/64.png",
+  96: "icon/96.png",
+  128: "icon/128.png",
+};
+
 export default defineConfig({
   modules: ["@wxt-dev/module-react"],
   srcDir: "src",
+  dev: {
+    server: {
+      port: 3000,
+    },
+  },
   manifest: ({ browser }) => ({
     name: "SongSphere",
     description:
@@ -25,7 +38,10 @@ export default defineConfig({
       "http://*/*",
       "https://*/*",
     ],
-    action: { default_title: "SongSphere" },
+    action: {
+      default_title: "SongSphere",
+      default_icon: TOOLBAR_ICONS,
+    },
     commands: {
       "toggle-play": {
         suggested_key: { default: "Alt+Shift+P", mac: "Alt+Shift+P" },

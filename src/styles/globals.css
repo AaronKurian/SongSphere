@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -5,17 +7,39 @@
 @layer base {
   :root {
     color-scheme: dark;
+    --surface: #0b0b10;
+    --surface-raised: #0f0f17;
+    --surface-muted: #15151f;
+    --border: rgba(255, 255, 255, 0.07);
+    --border-soft: rgba(255, 255, 255, 0.04);
+    --text-primary: #ebebf5;
+    --text-secondary: #55556a;
+    --text-muted: #33334a;
+    --accent: #7c5cff;
+    --art-bg: #15151f;
   }
 
   html,
   body,
   #root {
+    min-height: 200px;
     height: 100%;
+    margin: 0;
+  }
+
+  #root {
+    display: flex;
+    flex-direction: column;
   }
 
   body {
-    @apply bg-surface text-text-primary font-sans antialiased;
     margin: 0;
+    font-family: "DM Sans", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto,
+      sans-serif;
+    background-color: var(--surface);
+    color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   ::-webkit-scrollbar {
@@ -32,59 +56,186 @@
 }
 
 @layer components {
-  .surface-card {
-    @apply bg-surface-elevated border border-white/5 rounded-2xl;
+  .popup-shell {
+    display: flex;
+    flex-direction: column;
+    width: 360px;
+    min-height: 200px;
+    background: var(--surface);
+    overflow: hidden;
+    box-shadow:
+      0 32px 80px rgba(0, 0, 0, 0.85),
+      0 0 0 1px var(--border);
   }
 
-  .focus-ring {
-    @apply outline-none focus-visible:ring-2 focus-visible:ring-brand/70 focus-visible:ring-offset-2 focus-visible:ring-offset-surface;
+  .accent-line {
+    height: 2.5px;
+    transition: background 0.5s ease;
+  }
+
+  .focus-ring:focus {
+    outline: none;
+  }
+  .focus-ring:focus-visible {
+    outline: none;
+    box-shadow:
+      0 0 0 2px var(--surface),
+      0 0 0 4px color-mix(in srgb, var(--accent) 70%, transparent);
+  }
+
+  .sphere-range {
+    height: 2px;
+    width: 100%;
+    cursor: pointer;
+    appearance: none;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.08);
+  }
+  .sphere-range::-webkit-slider-runnable-track {
+    height: 2px;
+    border-radius: 9999px;
+  }
+  .sphere-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 8px;
+    height: 8px;
+    margin-top: -3px;
+    border-radius: 9999px;
+    background: #000;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: none;
+    cursor: pointer;
+  }
+  .sphere-range::-moz-range-track {
+    height: 2px;
+    border: none;
+    border-radius: 9999px;
+    background: transparent;
+  }
+  .sphere-range::-moz-range-thumb {
+    width: 8px;
+    height: 8px;
+    border-radius: 9999px;
+    background: #000;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: none;
+    cursor: pointer;
+  }
+
+  .session-enter {
+    animation: sessionEnter 0.2s ease-out forwards;
+  }
+
+  @keyframes sessionEnter {
+    from {
+      opacity: 0;
+      transform: scale(0.97) translateY(4px);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1) translateY(0);
+    }
   }
 }
 
 @layer utilities {
-  .text-balance {
-    text-wrap: balance;
+  .like-pop {
+    animation: heartpop 0.3s ease forwards;
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .motion-safe\:animate-fade-in,
-    .motion-safe\:animate-slide-up,
-    .motion-safe\:animate-slide-left,
-    .motion-safe\:animate-slide-right,
-    .motion-safe\:animate-pulse-soft,
-    .motion-safe\:transition-all,
-    .motion-safe\:transition-\[width\],
-    .motion-safe\:duration-300,
-    .motion-safe\:duration-500,
-    .motion-safe\:shadow-glow {
-      animation: none !important;
-      transition: none !important;
-      box-shadow: none !important;
-      transform: none !important;
+  @keyframes heartpop {
+    0% {
+      transform: scale(1);
+    }
+    40% {
+      transform: scale(1.4);
+    }
+    70% {
+      transform: scale(0.9);
+    }
+    100% {
+      transform: scale(1);
     }
   }
 
-  input[type="range"].sphere-range {
-    @apply appearance-none w-full h-1 bg-white/10 rounded-full cursor-pointer;
+  @keyframes eq0 {
+    0% {
+      height: 3px;
+    }
+    100% {
+      height: 11px;
+    }
   }
-  input[type="range"].sphere-range::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 12px;
-    height: 12px;
-    border-radius: 9999px;
-    background: #fff;
-    border: none;
-    box-shadow: 0 0 0 2px rgba(124, 92, 255, 0.4);
-    cursor: pointer;
+  @keyframes eq1 {
+    0% {
+      height: 8px;
+    }
+    100% {
+      height: 3px;
+    }
   }
-  input[type="range"].sphere-range::-moz-range-thumb {
-    width: 12px;
-    height: 12px;
-    border-radius: 9999px;
-    background: #fff;
-    border: none;
-    box-shadow: 0 0 0 2px rgba(124, 92, 255, 0.4);
-    cursor: pointer;
+  @keyframes eq2 {
+    0% {
+      height: 4px;
+    }
+    100% {
+      height: 13px;
+    }
+  }
+  @keyframes eq3 {
+    0% {
+      height: 11px;
+    }
+    100% {
+      height: 4px;
+    }
+  }
+  @keyframes eq4 {
+    0% {
+      height: 5px;
+    }
+    100% {
+      height: 9px;
+    }
+  }
+
+  .eq-bar-0 {
+    height: 3px;
+    animation: eq0 0.55s ease-in-out 0s infinite alternate;
+  }
+  .eq-bar-1 {
+    height: 8px;
+    animation: eq1 0.55s ease-in-out 0.11s infinite alternate;
+  }
+  .eq-bar-2 {
+    height: 4px;
+    animation: eq2 0.55s ease-in-out 0.22s infinite alternate;
+  }
+  .eq-bar-3 {
+    height: 11px;
+    animation: eq3 0.55s ease-in-out 0.33s infinite alternate;
+  }
+  .eq-bar-4 {
+    height: 5px;
+    animation: eq4 0.55s ease-in-out 0.44s infinite alternate;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .like-pop,
+    .session-enter,
+    .eq-bar-0,
+    .eq-bar-1,
+    .eq-bar-2,
+    .eq-bar-3,
+    .eq-bar-4 {
+      animation: none !important;
+    }
+    .motion-safe\:transition-\[width\],
+    .motion-safe\:transition-all,
+    .motion-safe\:duration-300,
+    .motion-safe\:duration-500 {
+      transition: none !important;
+    }
   }
 }

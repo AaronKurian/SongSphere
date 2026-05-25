@@ -1,29 +1,26 @@
-import { ExternalLink, RefreshCw } from "lucide-react";
-import { IconButton } from "~/popup/components/common/IconButton";
-import { LikeButton } from "~/popup/components/controls/LikeButton";
-import { PlaybackControls } from "~/popup/components/controls/PlaybackControls";
-import { VolumeSlider } from "~/popup/components/controls/VolumeSlider";
-import { AlbumArt } from "~/popup/components/player/AlbumArt";
-import { ProgressBar } from "~/popup/components/player/ProgressBar";
-import { SessionHeader } from "~/popup/components/player/SessionHeader";
-import { EmptyState } from "~/popup/components/player/EmptyState";
-import { SessionStrip } from "~/popup/components/player/SessionStrip";
-import { TrackInfo } from "~/popup/components/player/TrackInfo";
-import { TelemetryOverlay } from "~/popup/components/dev/TelemetryOverlay";
 import { useCallback, useEffect } from "react";
 import { PLATFORMS } from "~/shared/constants";
 import { ext } from "~/shared/browser";
+import { connectionMessage, isDegraded } from "~/background/popup-port";
+import { AlbumArt } from "~/popup/components/player/AlbumArt";
+import { ProgressBar } from "~/popup/components/player/ProgressBar";
+import { EmptyState } from "~/popup/components/player/EmptyState";
+import { LikeButton } from "~/popup/components/controls/LikeButton";
+import { PlaybackControls } from "~/popup/components/controls/PlaybackControls";
+import { VolumeSlider } from "~/popup/components/controls/VolumeSlider";
+import { MarqueeText } from "~/popup/components/common/MarqueeText";
+import { PopupHeader } from "~/popup/components/layout/PopupHeader";
+import { BottomBar } from "~/popup/components/layout/BottomBar";
+import { TelemetryOverlay } from "~/popup/components/dev/TelemetryOverlay";
 import {
+  platformAccentColor,
   platformAccentStyle,
   useArtworkPromotion,
   useArtworkUrl,
   usePlayer,
 } from "./hooks";
 import { usePlayerStore } from "./store";
-import { connectionMessage, isDegraded } from "~/background/popup-port";
 import { cn } from "~/shared/utils";
-
-const LOGO = "/icon/48.png";
 
 export function App() {
   const {
@@ -34,12 +31,9 @@ export function App() {
     hydrated,
     loading,
     error,
-    sessionIndex,
-    sessionTotal,
-    navDirection,
+    selectedSessionId,
     refresh,
     sessions,
-    selectedSessionId,
     navigationOrder,
     selectNextSession,
     selectPreviousSession,
@@ -57,8 +51,11 @@ export function App() {
   const dispose = usePlayerStore((s) => s.dispose);
   const stripOrder = usePlayerStore((s) => s.sessions.stripOrder);
   const sessionList = usePlayerStore((s) => s.sessions.sessions);
-  const showEmpty = hydrated && !loading && sessionList.length === 0;
+  const showEmpty = hydrated && sessionList.length === 0;
+  const showPlayer = sessionList.length > 0;
+  const showBoot = !hydrated && sessionList.length === 0;
   const accentStyle = platformAccentStyle(platform);
+  const accent = platformAccentColor(platform);
   useArtworkPromotion(sessions, stripOrder, selectedSessionId, track?.artwork);
   const artworkUrl = useArtworkUrl(track?.artwork, { attach: true });
 
@@ -75,169 +72,158 @@ export function App() {
 
   const hasTrack = !!track;
   const degraded = isDegraded(connection);
+  const controlsDisabled = !hasTrack || degraded || loading || !hydrated;
   const progressUnit: "ms" | "s" = track?.platform === "spotify" ? "ms" : "s";
-  const statusText =
-    error || connectionMessage(connection) || (loading ? "Connecting…" : "");
+  const platformLabel = platform ? PLATFORMS[platform].label.toUpperCase() : "";
+  const artistLine = track?.artist?.trim() || "—";
 
-  const slideClass =
-    navDirection === 1
-      ? "motion-safe:animate-slide-left"
-      : navDirection === -1
-        ? "motion-safe:animate-slide-right"
-        : "motion-safe:animate-fade-in";
+  const statusText =
+    error ||
+    (connection === "reconnecting"
+      ? "Connection lost — retrying…"
+      : connectionMessage(connection)) ||
+    (loading ? "Connecting…" : "");
 
   const openPlatformTab = useCallback((url: string) => {
     void ext.tabs.create({ url, active: true });
   }, []);
 
   return (
-    <div
-      className="flex max-h-[600px] min-h-[480px] w-[360px] flex-col gap-3 overflow-y-auto bg-surface p-4 text-text-primary"
-      style={accentStyle}
-    >
+    <div className="popup-shell" style={accentStyle}>
       <TelemetryOverlay />
-      <header className="flex items-center justify-between gap-2">
-        <div className="flex min-w-0 items-center gap-2">
-          <img
-            src={LOGO}
-            alt=""
-            width={28}
-            height={28}
-            draggable={false}
-            className="h-7 w-7 shrink-0 rounded-lg object-cover motion-safe:shadow-glow"
-          />
-          <span className="truncate text-xs font-semibold tracking-wide">SongSphere</span>
-        </div>
+      <div
+        className="accent-line"
+        style={{
+          background: `linear-gradient(90deg, ${accent}cc, ${accent}44)`,
+        }}
+      />
 
-        <div className="flex shrink-0 items-center gap-1">
-          <IconButton
-            label="Refresh"
-            size="sm"
-            variant="ghost"
-            disabled={loading}
-            onClick={() => void refresh()}
-            icon={
-              <RefreshCw
-                className={cn("h-4 w-4", loading && "motion-safe:animate-spin")}
-                strokeWidth={2.25}
-              />
-            }
-          />
-          <IconButton
-            label="Open player"
-            size="sm"
-            variant="ghost"
-            onClick={() => void openPlayer()}
-            icon={<ExternalLink className="h-4 w-4" strokeWidth={2.25} />}
-          />
-        </div>
-      </header>
+      <PopupHeader
+        platform={platform}
+        loading={loading}
+        onRefresh={() => void refresh()}
+        onOpenPlayer={() => void openPlayer()}
+      />
 
-      {!showEmpty && (
-        <SessionHeader
-          platform={platform}
-          sessionIndex={sessionIndex}
-          sessionTotal={sessionTotal}
-          disabled={loading || !hydrated}
-          onPrevious={() => void selectPreviousSession()}
-          onNext={() => void selectNextSession()}
-        />
+      {showBoot && (
+        <div className="flex flex-1 items-center justify-center px-4 py-10 text-[11px] text-[var(--text-secondary)]">
+          Connecting…
+        </div>
       )}
 
-      {!showEmpty && (
-        <SessionStrip
-          sessions={sessions}
-          navigationOrder={navigationOrder}
-          selectedSessionId={selectedSessionId}
-          disabled={loading || !hydrated}
-          onSelect={handleSelectSession}
-          onPreload={handlePreloadSession}
-        />
-      )}
-
-      {showEmpty ? (
+      {showEmpty && (
         <EmptyState
           className="flex-1"
           onOpenSpotify={() => openPlatformTab(PLATFORMS.spotify.playerUrl)}
           onOpenYTMusic={() => openPlatformTab(PLATFORMS.ytmusic.playerUrl)}
         />
-      ) : (
-      <main
-        id="player-panel"
-        key={`${platform ?? "none"}-${sessionIndex}`}
-        role="tabpanel"
-        aria-labelledby={
-          selectedSessionId != null ? `session-tab-${selectedSessionId}` : undefined
-        }
-        className={cn(
-          "flex flex-1 flex-col gap-4",
-          slideClass,
-          !hydrated && "opacity-60",
-        )}
-        aria-busy={loading || !hydrated}
-      >
-        <AlbumArt
-          className="mx-auto h-40 w-40 shrink-0"
-          src={artworkUrl}
-          alt={track ? `${track.title} cover` : "No track"}
-          isPlaying={!!track?.isPlaying}
-        />
-
-        <div className="flex items-start justify-between gap-3">
-          <TrackInfo
-            title={track?.title ?? ""}
-            artist={track?.artist ?? ""}
-            className="flex-1"
-          />
-          {capabilities.like && (
-            <LikeButton
-              liked={!!track?.liked}
-              disabled={!hasTrack || degraded}
-              onToggle={() => void toggleLike()}
-            />
-          )}
-        </div>
-
-        <ProgressBar
-          currentTime={track?.currentTime}
-          duration={track?.duration}
-          unit={progressUnit}
-          isPlaying={!!track?.isPlaying}
-          seekable={capabilities.seek && hasTrack && !degraded}
-          onSeek={(pos) => seek(pos)}
-        />
-
-        <PlaybackControls
-          isPlaying={!!track?.isPlaying}
-          disabled={!hasTrack || !capabilities.playPause || degraded}
-          showNext={capabilities.next}
-          showPrevious={capabilities.previous}
-          onTogglePlay={() => void togglePlay()}
-          onNext={() => void next()}
-          onPrevious={() => void previous()}
-        />
-
-        {capabilities.volume && (
-          <VolumeSlider
-            value={track?.volume}
-            disabled={!hasTrack || degraded}
-            onChange={setVolume}
-            onCommit={flushVolume}
-          />
-        )}
-      </main>
       )}
 
-      {statusText && (
+      {showPlayer && (
+        <>
+          <div
+            key={selectedSessionId ?? "none"}
+            className={cn(
+              "flex gap-3.5 px-3.5 pb-0 pt-1 session-enter",
+              (loading || !hydrated) && "opacity-45",
+            )}
+            id="player-panel"
+            role="tabpanel"
+            aria-labelledby={
+              selectedSessionId != null ? `session-tab-${selectedSessionId}` : undefined
+            }
+            aria-busy={loading || !hydrated}
+          >
+            <div className="w-[120px] shrink-0">
+              <AlbumArt
+                src={artworkUrl}
+                alt={track ? `${track.title} cover` : "No track"}
+                isPlaying={!!track?.isPlaying}
+                platform={platform}
+              />
+              <VolumeSlider
+                value={track?.volume}
+                visible={capabilities.volume}
+                disabled={controlsDisabled}
+                onChange={setVolume}
+                onCommit={flushVolume}
+              />
+            </div>
+
+            <div className="min-w-0 flex-1 pt-px">
+              {platformLabel && (
+                <p className="mb-1.5 text-[9px] font-bold uppercase tracking-[0.1em] text-[var(--accent)] opacity-90">
+                  {platformLabel}
+                </p>
+              )}
+
+              <div className="mb-[11px] flex items-end gap-1.5 leading-none">
+                <div className="min-w-0 flex-1 space-y-0.5">
+                  <MarqueeText
+                    text={track?.title ?? "Nothing playing"}
+                    resetKey={`${selectedSessionId ?? 0}-${track?.title ?? ""}`}
+                    className="text-[14.5px] font-bold leading-none tracking-[-0.025em] text-[var(--text-primary)]"
+                  />
+                  <MarqueeText
+                    text={artistLine}
+                    resetKey={`${selectedSessionId ?? 0}-${artistLine}`}
+                    className="text-[11px] font-normal leading-none text-[var(--text-secondary)]"
+                  />
+                </div>
+                {capabilities.like && (
+                  <LikeButton
+                    liked={!!track?.liked}
+                    disabled={controlsDisabled}
+                    onToggle={() => void toggleLike()}
+                    className="shrink-0 self-end"
+                  />
+                )}
+              </div>
+
+              <ProgressBar
+                currentTime={track?.currentTime}
+                duration={track?.duration}
+                unit={progressUnit}
+                isPlaying={!!track?.isPlaying}
+                seekable={capabilities.seek && hasTrack && !degraded}
+                loading={loading && !hydrated}
+                onSeek={(pos) => seek(pos)}
+              />
+
+              <PlaybackControls
+                isPlaying={!!track?.isPlaying}
+                disabled={!hasTrack || !capabilities.playPause || controlsDisabled}
+                showNext={capabilities.next}
+                showPrevious={capabilities.previous}
+                onTogglePlay={() => void togglePlay()}
+                onNext={() => void next()}
+                onPrevious={() => void previous()}
+              />
+            </div>
+          </div>
+
+          <BottomBar
+            sessions={sessionList}
+            navigationOrder={navigationOrder}
+            selectedSessionId={selectedSessionId}
+            disabled={loading || !hydrated}
+            onSelect={(tabId) => {
+              handlePreloadSession(tabId);
+              handleSelectSession(tabId);
+            }}
+            onPrevious={() => void selectPreviousSession()}
+            onNext={() => void selectNextSession()}
+          />
+        </>
+      )}
+
+      {statusText && !showBoot && (
         <footer
-          className="min-h-[16px] text-center text-[10px] leading-tight"
+          className="px-3 pb-2 pt-0 text-center text-[10px] leading-tight"
           role="status"
           aria-live="polite"
         >
-          <span
-            className={error ? "text-rose-400/90" : "text-text-muted"}
-            title={error ?? undefined}
-          >
+          <span className={error || connection === "reconnecting" ? "text-[#ff4444]" : "text-[var(--text-muted)]"}>
             {statusText}
           </span>
         </footer>

@@ -36,6 +36,7 @@ import {
   savePersistedMeta,
 } from "~/background/storage";
 import { bindPopupPort, broadcastToPopup, startHeartbeat } from "~/background/popup-port";
+import { installToolbarIcon } from "~/background/toolbar-icon";
 import { BUILD_ID } from "~/shared/constants";
 import { getBuildFreshness, initBuildFreshness } from "~/shared/build";
 import { installMainRuntimeInTab } from "~/background/main-inject";
@@ -49,6 +50,7 @@ const WAKE_DEBOUNCE_MS = 200;
 
 export default defineBackground(() => {
   initBuildFreshness("background");
+  installToolbarIcon();
   console.warn(`[SongSphere] background started ${BUILD_ID}`);
   debugLog("bg", "service worker", BUILD_ID);
   const registry = new Map<number, RegistryEntry>();

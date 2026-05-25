@@ -1,23 +1,33 @@
 import { useEffect, useMemo } from "react";
 import { getCapabilities, PLATFORMS } from "~/shared/constants";
-import { sessionIndex } from "~/background/session";
 import type { Platform } from "~/shared/types/player";
 import type { CSSProperties } from "react";
 import { usePlayerStore } from "./store";
 
 const DEFAULT_ACCENT = "#7c5cff";
 
+const ART_BG: Partial<Record<Platform, string>> = {
+  spotify: "#061a08",
+  ytmusic: "#1c0508",
+  youtube: "#1a0800",
+  generic: "#15151f",
+};
+
 export function platformAccentColor(platform: Platform | null): string {
   if (!platform) return DEFAULT_ACCENT;
   return PLATFORMS[platform].accent;
 }
 
+export function platformArtBackground(platform: Platform | null): string {
+  if (!platform) return ART_BG.generic ?? "#15151f";
+  return ART_BG[platform] ?? ART_BG.generic ?? "#15151f";
+}
+
 export function platformAccentStyle(platform: Platform | null): CSSProperties {
   const accent = platformAccentColor(platform);
   return {
-    "--platform-accent": accent,
-    "--platform-accent-soft": `${accent}40`,
-    "--platform-accent-muted": `${accent}22`,
+    "--accent": accent,
+    "--art-bg": platformArtBackground(platform),
   } as CSSProperties;
 }
 
@@ -26,7 +36,6 @@ export function usePlayer() {
   const hydrated = usePlayerStore((s) => s.hydrated);
   const loading = usePlayerStore((s) => s.loading);
   const error = usePlayerStore((s) => s.error);
-  const navDirection = usePlayerStore((s) => s.navDirection);
   const initialize = usePlayerStore((s) => s.initialize);
   const refresh = usePlayerStore((s) => s.refresh);
   const selectNextSession = usePlayerStore((s) => s.selectNextSession);
@@ -50,12 +59,6 @@ export function usePlayer() {
     if (sessions.selectedSessionId != null) return sessions.capabilities;
     return platform ? getCapabilities(platform) : sessions.capabilities;
   }, [platform, sessions.capabilities, sessions.selectedSessionId]);
-  const { index, total } = sessionIndex(
-    sessions.sessions,
-    sessions.selectedSessionId,
-    sessions.navigationOrder,
-  );
-
   useEffect(() => {
     void initialize();
   }, [initialize]);
@@ -68,9 +71,6 @@ export function usePlayer() {
     sessions: sessions.sessions,
     navigationOrder: sessions.navigationOrder,
     selectedSessionId: sessions.selectedSessionId,
-    sessionIndex: index,
-    sessionTotal: total,
-    navDirection,
     hydrated,
     tabId: sessions.selectedSessionId,
     loading: loading && !hydrated,

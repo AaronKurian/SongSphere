@@ -91,7 +91,7 @@ function displayUrl(entry: ArtworkEntry): string | undefined {
   return undefined;
 }
 
-export function cacheArtworkUrl(sourceUrl: string | undefined): void {
+function cacheArtworkUrl(sourceUrl: string | undefined): void {
   if (!sourceUrl) return;
   const entry = ensureEntry(sourceUrl);
   if (entry.phase === "cached") touchEntry(sourceUrl, entry);

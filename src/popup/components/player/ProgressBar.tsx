@@ -7,6 +7,7 @@ interface ProgressBarProps {
   unit?: "ms" | "s";
   isPlaying?: boolean;
   seekable?: boolean;
+  loading?: boolean;
   onSeek?: (position: number) => void;
   className?: string;
 }
@@ -17,6 +18,7 @@ export function ProgressBar({
   unit = "s",
   isPlaying = false,
   seekable,
+  loading,
   onSeek,
   className,
 }: ProgressBarProps) {
@@ -69,39 +71,56 @@ export function ProgressBar({
   };
 
   return (
-    <div className={cn("w-full", className)}>
-      <div
-        role={seekable ? "slider" : "progressbar"}
-        aria-valuemin={0}
-        aria-valuemax={100}
-        aria-valuenow={Math.round(displayPct)}
-        aria-label="Playback progress"
-        tabIndex={seekable ? 0 : undefined}
-        className={cn(
-          "relative h-1 w-full overflow-hidden rounded-full bg-white/8",
-          seekable && "cursor-pointer focus-ring",
-        )}
-        onClick={(e) => seekable && seekFromClientX(e.currentTarget, e.clientX)}
-        onKeyDown={(e) => {
-          if (!seekable || !durationSec || !onSeek) return;
-          const step = durationSec * 0.05;
-          const base = currentTime != null ? toSeconds(currentTime) : 0;
-          if (e.key === "ArrowRight") onSeek(base + step);
-          if (e.key === "ArrowLeft") onSeek(Math.max(0, base - step));
-        }}
-      >
+    <div className={cn("mb-2.5", className)}>
+      <div className="flex h-5 cursor-pointer items-center gap-[7px]">
+        <span className="min-w-[26px] text-[10px] font-medium tabular-nums text-[#444455]">
+          {formatTime(currentTime, unit)}
+        </span>
         <div
-          className="absolute inset-y-0 left-0 rounded-full motion-safe:transition-[width] motion-safe:duration-300 motion-safe:ease-out"
-          style={{
-            width: `${displayPct}%`,
-            background:
-              "linear-gradient(to right, var(--platform-accent-soft, #a690ff), var(--platform-accent, #7c5cff))",
+          role={seekable ? "slider" : "progressbar"}
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-valuenow={Math.round(displayPct)}
+          aria-label="Playback progress"
+          tabIndex={seekable ? 0 : undefined}
+          className={cn(
+            "relative h-[3px] min-w-0 flex-1 overflow-visible rounded-full bg-white/[0.07]",
+            seekable && "cursor-pointer focus-ring",
+            loading && "[&>div]:overflow-hidden",
+          )}
+          onClick={(e) => seekable && seekFromClientX(e.currentTarget, e.clientX)}
+          onKeyDown={(e) => {
+            if (!seekable || !durationSec || !onSeek) return;
+            const step = durationSec * 0.05;
+            const base = currentTime != null ? toSeconds(currentTime) : 0;
+            if (e.key === "ArrowRight") onSeek(base + step);
+            if (e.key === "ArrowLeft") onSeek(Math.max(0, base - step));
           }}
-        />
-      </div>
-      <div className="mt-1.5 flex items-center justify-between text-[10px] tabular-nums text-text-muted">
-        <span>{formatTime(currentTime, unit)}</span>
-        <span>{formatTime(duration, unit)}</span>
+        >
+          {loading ? (
+            <div className="absolute inset-0 animate-pulse bg-white/10" />
+          ) : (
+            <div
+              className="absolute inset-y-0 left-0 rounded-full bg-[var(--accent)] motion-safe:transition-[width] motion-safe:duration-300 motion-safe:ease-linear"
+              style={{
+                width: `${displayPct}%`,
+                transitionProperty: "width, background",
+                transitionDuration: "0.95s, 0.4s",
+              }}
+            >
+              <span
+                className="absolute right-[-5.5px] top-1/2 h-[11px] w-[11px] -translate-y-1/2 rounded-full bg-black"
+                style={{
+                  boxShadow:
+                    "0 0 0 2.5px var(--accent), 0 0 8px color-mix(in srgb, var(--accent) 33%, transparent)",
+                }}
+              />
+            </div>
+          )}
+        </div>
+        <span className="min-w-[26px] text-right text-[10px] tabular-nums text-[#333344]">
+          {formatTime(duration, unit)}
+        </span>
       </div>
     </div>
   );

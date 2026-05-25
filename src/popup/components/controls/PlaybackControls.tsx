@@ -1,5 +1,4 @@
 import { Pause, Play, SkipBack, SkipForward } from "lucide-react";
-import { IconButton } from "~/popup/components/common/IconButton";
 import { cn } from "~/shared/utils";
 
 interface PlaybackControlsProps {
@@ -13,6 +12,11 @@ interface PlaybackControlsProps {
   className?: string;
 }
 
+const iconProps = {
+  "aria-hidden": true as const,
+  strokeWidth: 2,
+};
+
 export function PlaybackControls({
   isPlaying,
   disabled,
@@ -23,48 +27,52 @@ export function PlaybackControls({
   onPrevious,
   className,
 }: PlaybackControlsProps) {
+  const transportClass =
+    "focus-ring flex h-9 w-9 items-center justify-center text-[var(--text-secondary)] transition hover:opacity-60 hover:scale-110 active:scale-95 disabled:pointer-events-none disabled:opacity-35";
+
   return (
-    <div className={cn("flex items-center justify-center gap-3", className)}>
+    <div className={cn("flex items-center justify-center gap-2.5", className)}>
       {showPrevious ? (
-        <IconButton
-          label="Previous video in playlist"
-          size="md"
-          variant="ghost"
+        <button
+          type="button"
+          aria-label="Previous track"
           disabled={disabled}
           onClick={onPrevious}
-          icon={<SkipBack className="h-5 w-5" strokeWidth={2.25} />}
-        />
-      ) : (
-        <span className="h-10 w-10" aria-hidden />
-      )}
+          className={transportClass}
+        >
+          <SkipBack className="h-[18px] w-[18px]" {...iconProps} />
+        </button>
+      ) : null}
 
-      <IconButton
-        label={isPlaying ? "Pause" : "Play"}
-        size="lg"
-        variant="primary"
+      <button
+        type="button"
+        aria-label={isPlaying ? "Pause" : "Play"}
         disabled={disabled}
         onClick={onTogglePlay}
-        icon={
-          isPlaying ? (
-            <Pause className="h-6 w-6" strokeWidth={2.5} fill="currentColor" />
-          ) : (
-            <Play className="h-6 w-6 translate-x-0.5" strokeWidth={2.5} fill="currentColor" />
-          )
-        }
-      />
+        className={cn(
+          "focus-ring flex h-[42px] w-[42px] items-center text-white justify-center rounded-full shadow-[0_6px_20px_rgba(0,0,0,0.6)] transition active:scale-95 disabled:cursor-not-allowed disabled:opacity-40",
+          isPlaying &&
+            "shadow-[0_6px_20px_rgba(0,0,0,0.6),0_0_20px_color-mix(in_srgb,var(--accent)_27%,transparent)]",
+        )}
+      >
+        {isPlaying ? (
+          <Pause className="h-5 w-5" {...iconProps} />
+        ) : (
+          <Play className="h-5 w-5 translate-x-px fill-current" {...iconProps} />
+        )}
+      </button>
 
       {showNext ? (
-        <IconButton
-          label="Next video in playlist"
-          size="md"
-          variant="ghost"
+        <button
+          type="button"
+          aria-label="Next track"
           disabled={disabled}
           onClick={onNext}
-          icon={<SkipForward className="h-5 w-5" strokeWidth={2.25} />}
-        />
-      ) : (
-        <span className="h-10 w-10" aria-hidden />
-      )}
+          className={transportClass}
+        >
+          <SkipForward className="h-[18px] w-[18px]" {...iconProps} />
+        </button>
+      ) : null}
     </div>
   );
 }

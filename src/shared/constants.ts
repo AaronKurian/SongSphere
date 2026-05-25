@@ -25,8 +25,8 @@ export const PLATFORMS: Record<Platform, PlatformDescriptor> = {
     hosts: ["open.spotify.com"],
     playerUrl: "https://open.spotify.com",
     matches: ["https://open.spotify.com/*"],
-    color: "#1db954",
-    accent: "#1db954",
+    color: "#03ad40",
+    accent: "#03ad40",
     capabilities: SPOTIFY_CAPABILITIES,
   },
   ytmusic: {
@@ -36,8 +36,8 @@ export const PLATFORMS: Record<Platform, PlatformDescriptor> = {
     hosts: ["music.youtube.com"],
     playerUrl: "https://music.youtube.com",
     matches: ["https://music.youtube.com/*"],
-    color: "#ff0033",
-    accent: "#ff0033",
+    color: "#b80208",
+    accent: "#b80208",
     capabilities: FULL_CAPABILITIES,
   },
   youtube: {
@@ -52,8 +52,8 @@ export const PLATFORMS: Record<Platform, PlatformDescriptor> = {
       "https://m.youtube.com/*",
     ],
     excludeMatches: ["https://music.youtube.com/*"],
-    color: "#ff0000",
-    accent: "#ff0000",
+    color: "#fa050d",
+    accent: "#fa050d",
     capabilities: YOUTUBE_CAPABILITIES,
   },
   generic: {

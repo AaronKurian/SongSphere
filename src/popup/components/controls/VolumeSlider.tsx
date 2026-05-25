@@ -4,6 +4,7 @@ import { cn, clamp } from "~/shared/utils";
 
 interface VolumeSliderProps {
   value: number | undefined;
+  visible?: boolean;
   disabled?: boolean;
   onChange: (value: number) => void;
   onCommit?: () => void;
@@ -12,6 +13,7 @@ interface VolumeSliderProps {
 
 export function VolumeSlider({
   value,
+  visible = true,
   disabled,
   onChange,
   onCommit,
@@ -25,7 +27,7 @@ export function VolumeSlider({
   }, [value]);
 
   const pct = clamp(local, 0, 1);
-  const Icon = pct === 0 ? VolumeX : pct < 0.5 ? Volume1 : Volume2;
+  const VolumeIcon = pct === 0 ? VolumeX : pct < 0.5 ? Volume1 : Volume2;
 
   const endDrag = () => {
     if (!draggingRef.current) return;
@@ -34,19 +36,30 @@ export function VolumeSlider({
   };
 
   return (
-    <div className={cn("flex items-center gap-2", className)}>
-      <Icon aria-hidden className="h-4 w-4 shrink-0 text-text-secondary" strokeWidth={2} />
+    <div
+      className={cn(
+        "mt-[9px] flex w-[120px] max-w-[120px] items-center gap-[2px] px-[3px] motion-safe:transition-opacity motion-safe:duration-300",
+        !visible && "pointer-events-none opacity-0",
+        className,
+      )}
+    >
+      <VolumeIcon
+        aria-hidden
+        className="h-3 w-3 shrink-0"
+        strokeWidth={2}
+        style={{ color: "color-mix(in srgb, var(--accent) 60%, transparent)" }}
+      />
       <input
         type="range"
         min={0}
         max={100}
         step={1}
         value={Math.round(pct * 100)}
-        disabled={disabled}
+        disabled={disabled || !visible}
         aria-label="Volume"
-        className="sphere-range focus-ring flex-1"
+        className="sphere-range focus-ring min-w-0 flex-1"
         style={{
-          background: `linear-gradient(to right, var(--platform-accent, #fff) 0%, var(--platform-accent, #fff) ${pct * 100}%, rgba(255,255,255,0.08) ${pct * 100}%, rgba(255,255,255,0.08) 100%)`,
+          background: `linear-gradient(to right, var(--accent) 0%, var(--accent) ${pct * 100}%, rgba(255,255,255,0.08) ${pct * 100}%, rgba(255,255,255,0.08) 100%)`,
         }}
         onPointerDown={() => {
           draggingRef.current = true;
@@ -60,7 +73,7 @@ export function VolumeSlider({
           onChange(next);
         }}
       />
-      <span className="w-7 text-right text-[10px] tabular-nums text-text-muted">
+      <span className="w-5 text-right text-[10px] tabular-nums text-text-muted">
         {Math.round(pct * 100)}
       </span>
     </div>

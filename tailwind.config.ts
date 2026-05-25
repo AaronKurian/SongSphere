@@ -10,62 +10,29 @@ const config: Config = {
     extend: {
       colors: {
         surface: {
-          DEFAULT: "#0b0b0f",
-          elevated: "#15151d",
-          muted: "#1c1c26",
-          border: "#26263340",
+          DEFAULT: "var(--surface)",
+          raised: "var(--surface-raised)",
+          muted: "var(--surface-muted)",
         },
         brand: {
-          DEFAULT: "#7c5cff",
-          soft: "#a690ff",
+          DEFAULT: "var(--accent)",
+          soft: "color-mix(in srgb, var(--accent) 40%, transparent)",
           glow: "#4c2cff",
         },
         text: {
-          primary: "#f5f5fa",
-          secondary: "#a1a1b3",
-          muted: "#6b6b80",
+          primary: "var(--text-primary)",
+          secondary: "var(--text-secondary)",
+          muted: "var(--text-muted)",
         },
         platform: {
           spotify: "#1db954",
           ytmusic: "#ff0033",
-          youtube: "#ff0000",
-        },
-      },
-      boxShadow: {
-        glow: "0 0 24px -8px rgba(124, 92, 255, 0.55)",
-      },
-      animation: {
-        "fade-in": "fadeIn 200ms ease-out",
-        "slide-up": "slideUp 220ms ease-out",
-        "slide-left": "slideLeft 220ms ease-out",
-        "slide-right": "slideRight 220ms ease-out",
-        "pulse-soft": "pulseSoft 1.6s ease-in-out infinite",
-      },
-      keyframes: {
-        fadeIn: {
-          "0%": { opacity: "0" },
-          "100%": { opacity: "1" },
-        },
-        slideUp: {
-          "0%": { opacity: "0", transform: "translateY(6px)" },
-          "100%": { opacity: "1", transform: "translateY(0)" },
-        },
-        slideLeft: {
-          "0%": { opacity: "0", transform: "translateX(12px)" },
-          "100%": { opacity: "1", transform: "translateX(0)" },
-        },
-        slideRight: {
-          "0%": { opacity: "0", transform: "translateX(-12px)" },
-          "100%": { opacity: "1", transform: "translateX(0)" },
-        },
-        pulseSoft: {
-          "0%, 100%": { opacity: "0.6" },
-          "50%": { opacity: "1" },
+          youtube: "#ff4400",
         },
       },
       fontFamily: {
         sans: [
-          "Inter",
+          "DM Sans",
           "ui-sans-serif",
           "system-ui",
           "-apple-system",
@@ -73,6 +40,9 @@ const config: Config = {
           "Roboto",
           "sans-serif",
         ],
+      },
+      boxShadow: {
+        glow: "0 0 24px -8px color-mix(in srgb, var(--accent) 55%, transparent)",
       },
     },
   },
