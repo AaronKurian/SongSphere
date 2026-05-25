@@ -2,6 +2,8 @@
 
 Universal multi-session media controller for the browser - Spotify, YouTube Music, YouTube and generic HTML5 players.
 
+SongSphere is an independent open-source project and is not affiliated with Spotify, YouTube, Google or any music platform.
+
 Built with **WXT · React · TypeScript · Tailwind · Zustand**.
 
 ## Features
