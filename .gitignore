@@ -1,0 +1,11 @@
+node_modules
+.output
+.wxt
+dist
+stats.html
+stats-*.json
+*.log
+.DS_Store
+.env
+.env.*
+!.env.example

@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    color-scheme: dark;
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    @apply bg-surface text-text-primary font-sans antialiased;
+    margin: 0;
+  }
+
+  ::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 999px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.16);
+  }
+}
+
+@layer components {
+  .surface-card {
+    @apply bg-surface-elevated border border-white/5 rounded-2xl;
+  }
+
+  .focus-ring {
+    @apply outline-none focus-visible:ring-2 focus-visible:ring-brand/70 focus-visible:ring-offset-2 focus-visible:ring-offset-surface;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .motion-safe\:animate-fade-in,
+    .motion-safe\:animate-slide-up,
+    .motion-safe\:animate-slide-left,
+    .motion-safe\:animate-slide-right,
+    .motion-safe\:animate-pulse-soft,
+    .motion-safe\:transition-all,
+    .motion-safe\:transition-\[width\],
+    .motion-safe\:duration-300,
+    .motion-safe\:duration-500,
+    .motion-safe\:shadow-glow {
+      animation: none !important;
+      transition: none !important;
+      box-shadow: none !important;
+      transform: none !important;
+    }
+  }
+
+  input[type="range"].sphere-range {
+    @apply appearance-none w-full h-1 bg-white/10 rounded-full cursor-pointer;
+  }
+  input[type="range"].sphere-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 12px;
+    height: 12px;
+    border-radius: 9999px;
+    background: #fff;
+    border: none;
+    box-shadow: 0 0 0 2px rgba(124, 92, 255, 0.4);
+    cursor: pointer;
+  }
+  input[type="range"].sphere-range::-moz-range-thumb {
+    width: 12px;
+    height: 12px;
+    border-radius: 9999px;
+    background: #fff;
+    border: none;
+    box-shadow: 0 0 0 2px rgba(124, 92, 255, 0.4);
+    cursor: pointer;
+  }
+}

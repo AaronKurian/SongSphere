@@ -1,0 +1,48 @@
+/** YouTube watch-page selectors — class-based (locale-independent). */
+
+export const youtubeSelectors = {
+  video: ["video.html5-main-video", "#movie_player video", "video"],
+  next: [".ytp-next-button", "#movie_player .ytp-next-button"],
+  previous: [".ytp-prev-button", "#movie_player .ytp-prev-button"],
+  title: [
+    "ytd-watch-metadata #title h1 yt-formatted-string",
+    "ytd-watch-metadata h1 yt-formatted-string",
+    "ytd-watch-metadata h1 yt-core-attributed-string",
+    "ytd-watch-metadata #title h1",
+    "ytd-watch-metadata h1 .ytd-video-primary-info-renderer",
+    "#title h1 yt-formatted-string",
+    "#title h1 yt-core-attributed-string",
+    "h1.ytd-watch-metadata yt-formatted-string",
+    "h1.ytd-watch-metadata yt-core-attributed-string",
+    "h1.ytd-video-primary-info-renderer yt-formatted-string",
+    "ytd-video-primary-info-renderer h1 yt-formatted-string",
+    "ytd-video-title h1 yt-formatted-string",
+    "yt-formatted-string.ytd-video-title",
+    "h1.title yt-formatted-string",
+    "h1 yt-formatted-string",
+  ],
+  playerVideoId: ["ytd-player#movie_player", "ytd-player"],
+  channel: [
+    "ytd-channel-name #text a",
+    "ytd-video-owner-renderer a.yt-simple-endpoint",
+    "#owner-name a",
+    "span.ytd-channel-name a",
+    "ytd-watch-metadata #channel-name a",
+  ],
+  thumbnail: [
+    "ytd-watch-metadata #thumbnail img",
+    "ytd-watch-metadata img.yt-core-image",
+    "#player img.yt-core-image",
+    "link[itemprop='thumbnailUrl']",
+  ],
+  videoIdMeta: ['meta[itemprop="videoId"]'],
+  ogImage: ['meta[property="og:image"]'],
+  ogTitle: ['meta[property="og:title"]'],
+  like: [
+    "ytd-watch-metadata like-button-view-model button",
+    "ytd-watch-metadata segmented-like-dislike-button-view-model like-button-view-model button",
+    "ytd-watch-metadata #button-shape-like button",
+    "ytd-watch-metadata ytd-toggle-button-renderer #button-shape-like button",
+    "#top-level-buttons-computed ytd-toggle-button-renderer:first-of-type button",
+  ],
+} as const;
