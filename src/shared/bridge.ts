@@ -199,7 +199,7 @@ export async function startBridgeRuntime(platform: Platform): Promise<void> {
     await waitForBridgeReady(platform, MAIN_READY_TIMEOUT_MS);
   } catch (err) {
     bridgeLog(
-      `bridge not ready for ${platform} — reload the Spotify tab after extension reload`,
+      `bridge not ready for ${platform} - reload the Spotify tab after extension reload`,
       err,
     );
   }

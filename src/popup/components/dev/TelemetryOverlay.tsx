@@ -12,7 +12,7 @@ import type { TelemetrySnapshot } from "~/shared/types/telemetry";
 
 function ratio(patch: number, full: number): string {
   const total = patch + full;
-  if (total === 0) return "—";
+  if (total === 0) return "-";
   return `${Math.round((patch / total) * 100)}% patch`;
 }
 

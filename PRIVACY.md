@@ -17,9 +17,9 @@ SongSphere is a browser extension that controls media tabs you already have open
 | `scripting` | Inject platform content scripts on supported sites |
 | `storage` | Persist session strip and preferences locally |
 | `alarms` | Periodic resync when the popup is closed |
-| Host permissions | Read now-playing metadata from Spotify, YouTube, YouTube Music, and generic media pages |
+| Host permissions | Read now-playing metadata from Spotify, YouTube, YouTube Music and generic media pages |
 
-SongSphere **does not** record audio, capture microphone input, or transmit playback data to SongSphere servers.
+SongSphere **does not** record audio, capture microphone input or transmit playback data to SongSphere servers.
 
 ## Third parties
 

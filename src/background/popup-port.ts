@@ -4,7 +4,7 @@ import { debugLog, debugWarn } from "~/shared/debug";
 import type { ConnectionState } from "~/shared/types/player";
 import type { EventMessage } from "~/shared/types/messages";
 
-/** Popup long-lived port, heartbeat alarm, and session broadcast (port first, runtime fallback). */
+/** Popup long-lived port, heartbeat alarm and session broadcast (port first, runtime fallback). */
 
 export const HEARTBEAT_ALARM = "songsphere-heartbeat";
 export const POPUP_PORT = "songsphere-popup";
@@ -53,7 +53,7 @@ export function broadcastToPopup(msg: EventMessage): void {
 }
 
 const MESSAGES: Record<ConnectionState, string> = {
-  idle: "Open Spotify, YouTube Music, or any page with media playing.",
+  idle: "Open Spotify, YouTube Music or any page with media playing.",
   connecting: "Connecting to player…",
   connected: "",
   reconnecting: "Reconnecting to player…",
@@ -112,7 +112,7 @@ export class PopupSession {
         this.messageListener(raw);
       });
       this.port.onDisconnect.addListener(() => {
-        debugWarn("popup", "port disconnected — will reconnect on next open");
+        debugWarn("popup", "port disconnected - will reconnect on next open");
         this.port = null;
         onReconnect?.();
       });

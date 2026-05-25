@@ -22,5 +22,5 @@ src/
 
 | World | Owns |
 |-------|------|
-| Isolated | `readTrack`, observers, orchestration, bridge client |
+| Isolated | `readTrack`, observers orchestration, bridge client |
 | MAIN | `songsphere-main-runtime.js`, command executors, DOM mutations |

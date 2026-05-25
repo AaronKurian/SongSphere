@@ -1,4 +1,4 @@
-/** YouTube watch-page selectors — class-based (locale-independent). */
+/** YouTube watch-page selectors - class-based (locale-independent). */
 
 export const youtubeSelectors = {
   video: ["video.html5-main-video", "#movie_player video", "video"],

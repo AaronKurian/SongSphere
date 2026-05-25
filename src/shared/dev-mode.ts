@@ -1,6 +1,6 @@
 const DEV_KEY = "songsphere:dev";
 
-/** Dev telemetry flag — `localStorage.setItem('songsphere:dev','1')` in any extension page console. */
+/** Dev telemetry flag - `localStorage.setItem('songsphere:dev','1')` in any extension page console. */
 
 export function isDevTelemetryEnabled(): boolean {
   try {

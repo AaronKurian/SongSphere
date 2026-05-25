@@ -75,12 +75,12 @@ export function App() {
   const controlsDisabled = !hasTrack || degraded || loading || !hydrated;
   const progressUnit: "ms" | "s" = track?.platform === "spotify" ? "ms" : "s";
   const platformLabel = platform ? PLATFORMS[platform].label.toUpperCase() : "";
-  const artistLine = track?.artist?.trim() || "—";
+  const artistLine = track?.artist?.trim() || "-";
 
   const statusText =
     error ||
     (connection === "reconnecting"
-      ? "Connection lost — retrying…"
+      ? "Connection lost - retrying…"
       : connectionMessage(connection)) ||
     (loading ? "Connecting…" : "");
 

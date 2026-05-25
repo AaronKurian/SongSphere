@@ -1,4 +1,4 @@
-/** Player track model, connection state, and stable track hashing for sync. */
+/** Player track model, connection state and stable track hashing for sync. */
 
 export type Platform = "spotify" | "ytmusic" | "youtube" | "generic";
 

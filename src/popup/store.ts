@@ -174,7 +174,7 @@ export const usePlayerStore = create<PlayerStore>((set, get) => {
 
       session.setMessageListener((rawMsg) => applyEvent(set, rawMsg));
       session.connectPort(() => {
-        debugWarn("popup", "port dropped — refreshing sessions");
+        debugWarn("popup", "port dropped - refreshing sessions");
         void get().refresh();
       });
 

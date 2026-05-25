@@ -1,6 +1,6 @@
 {
   "name": "songsphere",
-  "description": "SongSphere - Universal browser music controller for Spotify, YouTube Music, and more.",
+  "description": "SongSphere - Universal browser music controller for Spotify, YouTube Music and more.",
   "private": true,
   "version": "0.1.0",
   "license": "MIT",

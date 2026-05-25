@@ -1,6 +1,6 @@
 import type { Platform } from "~/shared/types/player";
 
-/** MAIN-world bridge commands — privileged playback mutations and reads (not isolated DOM). */
+/** MAIN-world bridge commands - privileged playback mutations and reads (not isolated DOM). */
 
 export const BRIDGE_VERSION = "songsphere-bridge-v1" as const;
 

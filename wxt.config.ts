@@ -1,4 +1,28 @@
 import { defineConfig } from "wxt";
+import type { Plugin } from "vite";
+
+/** Dev-only: WXT serves unlisted pages from source paths, not /{name}.html. */
+function unlistedPageDevAliases(): Plugin {
+  const aliases: Record<string, string> = {
+    "/landing.html": "/src/entrypoints/landing/index.html",
+    "/privacy.html": "/src/entrypoints/privacy/index.html",
+    "/license.html": "/src/entrypoints/license/index.html",
+  };
+  return {
+    name: "songsphere-unlisted-page-dev-aliases",
+    apply: "serve",
+    configureServer(server) {
+      server.middlewares.use((req, _res, next) => {
+        const raw = req.url ?? "";
+        const q = raw.indexOf("?");
+        const path = q >= 0 ? raw.slice(0, q) : raw;
+        const target = aliases[path];
+        if (target) req.url = target + (q >= 0 ? raw.slice(q) : "");
+        next();
+      });
+    },
+  };
+}
 
 /** Sizes used for toolbar/browser_action icons (Firefox picks ~32–48px when pinned). */
 const TOOLBAR_ICONS: Record<string, string> = {
@@ -11,6 +35,9 @@ const TOOLBAR_ICONS: Record<string, string> = {
 export default defineConfig({
   modules: ["@wxt-dev/module-react"],
   srcDir: "src",
+  vite: () => ({
+    plugins: [unlistedPageDevAliases()],
+  }),
   dev: {
     server: {
       port: 3000,
@@ -19,7 +46,7 @@ export default defineConfig({
   manifest: ({ browser }) => ({
     name: "SongSphere",
     description:
-      "Control every playing music tab from one popup — Spotify, YouTube Music, YouTube, and more. Local-only, no analytics.",
+      "Control every playing music tab from one popup - Spotify, YouTube Music, YouTube and more. Local-only, no analytics.",
     version: "0.1.0",
     permissions: [
       "tabs",

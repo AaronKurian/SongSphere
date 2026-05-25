@@ -1,4 +1,4 @@
-/** YouTube Music player-bar selectors — stable IDs with aria fallbacks. */
+/** YouTube Music player-bar selectors - stable IDs with aria fallbacks. */
 
 export const ytmusicSelectors = {
   playerBar: ["ytmusic-player-bar"],

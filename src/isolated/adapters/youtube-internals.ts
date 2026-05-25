@@ -100,7 +100,7 @@ export function bindYoutubePageBridge(
     requestYoutubePageDetails();
     injectMisses += 1;
     if (injectMisses === 5 && !beforeInject) {
-      debugWarn("yt-bridge", "inline inject never delivered (CSP?) — using script parse + MAIN bridge");
+      debugWarn("yt-bridge", "inline inject never delivered (CSP?) - using script parse + MAIN bridge");
     }
 
     void sendBridgeCommand("youtube", { type: "READ_YOUTUBE_DETAILS" }).then((data) => {

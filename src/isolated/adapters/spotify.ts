@@ -104,7 +104,7 @@ export class SpotifyAdapter extends BridgeBackedAdapter {
   }
 
   override async setVolume(_volume: number): Promise<void> {
-    /* Spotify volume unsupported — use Spotify's own player controls. */
+    /* Spotify volume unsupported - use Spotify's own player controls. */
   }
 
   override async toggleLike(): Promise<void> {

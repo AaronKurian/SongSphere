@@ -1,4 +1,4 @@
-/* Scheduling, coalescing queues, delta batching, and async retry helpers. */
+/* Scheduling, coalescing queues, delta batching and async retry helpers. */
 import { BROWSER_FLAGS } from "~/shared/browser";
 import { computeSessionsDelta, isEmptyDelta } from "~/background/session";
 import type { SessionsDeltaPayload, SessionsPayload } from "~/shared/types/session";

@@ -1,4 +1,4 @@
-/** Spotify Web Player selectors — `data-testid` first, aria fallbacks. */
+/** Spotify Web Player selectors - `data-testid` first, aria fallbacks. */
 
 export const spotifySelectors = {
   nowPlayingBar: [

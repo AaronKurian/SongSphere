@@ -6,20 +6,20 @@ Run before each store release. Enable dev telemetry for observability:
 localStorage.setItem("songsphere:dev", "1");
 ```
 
-Reopen the popup — counters appear bottom-right.
+Reopen the popup - counters appear bottom-right.
 
 ## Session scale (20+ tabs)
 
-1. Open 20+ tabs across Spotify, YTM, YouTube, and generic media pages.
+1. Open 20+ tabs across Spotify, YTM, YouTube and generic media pages.
 2. Start playback on 5+ tabs simultaneously.
-3. Open popup — strip should render ±4 pills with overflow counts.
+3. Open popup - strip should render ±4 pills with overflow counts.
 4. Rapidly arrow-key through sessions; verify no hydration thrash (promotions stable in dev overlay).
-5. Leave popup open 10 minutes — memory should plateau (patch ratio high, flush rate modest).
+5. Leave popup open 10 minutes - memory should plateau (patch ratio high, flush rate modest).
 
 ## Carousel / selection
 
 1. Rapid-click session pills for 30s.
-2. Use Alt+Shift+Left/Right — selection and strip order stay coherent.
+2. Use Alt+Shift+Left/Right - selection and strip order stay coherent.
 3. Dev overlay: `Δ flushes` should coalesce (not 1:1 with clicks).
 
 ## Popup reopen spam
@@ -40,7 +40,7 @@ Reopen the popup — counters appear bottom-right.
 
 ## Firefox long session
 
-1. `npm run dev:firefox` — leave playing overnight (or 4+ hours).
+1. `npm run dev:firefox` - leave playing overnight (or 4+ hours).
 2. Compare `about:memory` before/after; extension should not grow unbounded.
 3. Artwork cache cap: 36 entries (see `browser-flags.ts`).
 

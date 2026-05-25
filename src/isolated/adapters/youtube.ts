@@ -19,7 +19,7 @@ import { YOUTUBE_CAPABILITIES } from "~/shared/types/adapter";
 import type { Platform, TrackInfo } from "~/shared/types/player";
 import { youtubeSelectors as sel } from "~/isolated/adapters/selectors/youtube";
 
-/** YouTube watch adapter — video id from URL/player attrs (SPA-safe), bridge-backed controls. */
+/** YouTube watch adapter - video id from URL/player attrs (SPA-safe), bridge-backed controls. */
 
 export function getYoutubeVideo(): HTMLVideoElement | null {
   const video = document.querySelector<HTMLVideoElement>(sel.video[0]);

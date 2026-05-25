@@ -68,9 +68,9 @@ export function logBuildBanner(context: string): void {
   const snap = getBuildFreshness();
   const hint =
     snap.status === "stale"
-      ? " — reload extension + this tab"
+      ? " - reload extension + this tab"
       : snap.status === "leader"
-        ? " — extension reloaded (this context is current)"
+        ? " - extension reloaded (this context is current)"
         : "";
 
   console.warn(`[SongSphere:build] ${context} ${buildLogTag()}${hint}`);

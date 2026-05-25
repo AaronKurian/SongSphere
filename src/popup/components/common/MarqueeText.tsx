@@ -58,7 +58,7 @@ export function MarqueeText({ text, className, resetKey }: MarqueeTextProps) {
     };
   }, [measure, resetKey]);
 
-  const display = text?.trim() || "—";
+  const display = text?.trim() || "-";
   const marquee = overflowPx > 0 && !reducedMotion;
 
   useEffect(() => {

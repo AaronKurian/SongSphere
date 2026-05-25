@@ -4,6 +4,7 @@ const config: Config = {
   content: [
     "./src/entrypoints/**/*.{html,ts,tsx}",
     "./src/popup/**/*.{ts,tsx}",
+    "./src/landing/**/*.{ts,tsx}",
   ],
   darkMode: "class",
   theme: {

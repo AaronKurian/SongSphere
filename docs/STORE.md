@@ -2,11 +2,11 @@
 
 ## Short description (132 chars)
 
-Control Spotify, YouTube Music, YouTube, and more from one popup — multi-tab sessions, keyboard shortcuts, no audio leaves your browser.
+Control Spotify, YouTube Music, YouTube and more from one popup - multi-tab sessions, keyboard shortcuts, no audio leaves your browser.
 
 ## Full description
 
-SongSphere is a universal media controller for your browser. See every playing tab in a compact session strip, switch instantly, and control playback without hunting for the right window.
+SongSphere is a universal media controller for your browser. See every playing tab in a compact session strip, switch instantly and control playback without hunting for the right window.
 
 **Supported players**
 
@@ -18,9 +18,9 @@ SongSphere is a universal media controller for your browser. See every playing t
 **Features**
 
 - Multi-session strip with smart labels and platform accents
-- Play, pause, seek, volume, and like where the platform allows
+- Play, pause, seek, volume and like where the platform allows
 - Keyboard shortcuts (Alt+Shift+P / arrows / L)
-- Lightweight sync — metadata only, no streaming through SongSphere
+- Lightweight sync - metadata only, no streaming through SongSphere
 
 **Privacy**
 
