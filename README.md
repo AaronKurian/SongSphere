@@ -16,17 +16,30 @@ Built with **WXT · React · TypeScript · Tailwind · Zustand**.
 
 ## Gallery
 
+<!--
+The previous Gallery used markdown tables with plain text placeholders, so nothing rendered.
+Use an HTML table + <img> tags for reliable multi-column layout on GitHub.
+Update the image paths below to match the real files in your repo.
+-->
 
-| Spotify | Youtube |
-| ------- | ------- |
-| Spotify | Youtube |
-
-
-
-|     | YouTube Music |     |
-| --- | ------------- | --- |
-|     | YouTube Music |     |
-
+<table>
+  <tr>
+    <th>Spotify</th>
+    <th>YouTube</th>
+    <th>YouTube Music</th>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="assets/spotify.png" alt="SongSphere - Spotify" width="260" />
+    </td>
+    <td align="center">
+      <img src="assets/youtube.png" alt="SongSphere - YouTube" width="260" />
+    </td>
+    <td align="center">
+      <img src="assets/youtubemusic.png" alt="SongSphere - YouTube Music" width="260" />
+    </td>
+  </tr>
+</table>
 
 ## Install
 
@@ -62,13 +75,11 @@ npm run dev:firefox
 
 **Reload after changes**
 
-
 | What you changed                | What to do                                                          |
 | ------------------------------- | ------------------------------------------------------------------- |
 | Popup UI (`src/popup/`, styles) | Close and reopen the SongSphere popup                               |
 | Background / content scripts    | **Reload** the extension in `about:debugging`                       |
 | `manifest` / `wxt.config.ts`    | Stop dev (`Ctrl+C`), run `npm run dev:firefox` again, reload add-on |
-
 
 **Landing page (marketing site)**
 
@@ -143,14 +154,12 @@ npm run zip           # → Chrome MV3 zip
 
 **Shortcuts** (when the browser has focus):
 
-
 | Shortcut    | Action                 |
 | ----------- | ---------------------- |
 | Alt+Shift+P | Play / pause           |
 | Alt+Shift+→ | Next track             |
 | Alt+Shift+← | Previous track         |
 | Alt+Shift+L | Like (where supported) |
-
 
 ---
 
