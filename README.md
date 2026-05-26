@@ -23,8 +23,8 @@ Use an HTML table + <img> tags for reliable multi-column layout on GitHub.
 
 <table>
   <tr>
+    <th>Youtube</th>
     <th>Spotify</th>
-    <th>YouTube</th>
     <th>YouTube Music</th>
   </tr>
   <tr>
