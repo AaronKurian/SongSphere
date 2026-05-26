@@ -19,7 +19,6 @@ Built with **WXT · React · TypeScript · Tailwind · Zustand**.
 <!--
 The previous Gallery used markdown tables with plain text placeholders, so nothing rendered.
 Use an HTML table + <img> tags for reliable multi-column layout on GitHub.
-Update the image paths below to match the real files in your repo.
 -->
 
 <table>
@@ -30,13 +29,13 @@ Update the image paths below to match the real files in your repo.
   </tr>
   <tr>
     <td align="center">
-      <img src="assets/spotify.png" alt="SongSphere - Spotify" width="260" />
+      <img src="docs/imgs/ss1.png" alt="SongSphere screenshot 1 (Spotify)" width="260" />
     </td>
     <td align="center">
-      <img src="assets/youtube.png" alt="SongSphere - YouTube" width="260" />
+      <img src="docs/imgs/ss2.png" alt="SongSphere screenshot 2 (YouTube)" width="260" />
     </td>
     <td align="center">
-      <img src="assets/youtubemusic.png" alt="SongSphere - YouTube Music" width="260" />
+      <img src="docs/imgs/ss3.png" alt="SongSphere screenshot 3 (YouTube Music)" width="260" />
     </td>
   </tr>
 </table>
