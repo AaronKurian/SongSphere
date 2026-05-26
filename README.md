@@ -14,20 +14,19 @@ Built with **WXT · React · TypeScript · Tailwind · Zustand**.
 - Chrome and Firefox builds
 - Local-only - no backend, no analytics
 
-## Prerequisites
+## Gallery
 
-- **Node.js** 18 or newer ([nodejs.org](https://nodejs.org))
-- **npm** 9+ (comes with Node)
-- **Git**
-- **Firefox** and/or **Google Chrome / Chromium**
 
-Check versions:
+| Spotify | Youtube |
+| ------- | ------- |
+| Spotify | Youtube |
 
-```bash
-node -v   # v18+
-npm -v
-git --version
-```
+
+
+|     | YouTube Music |     |
+| --- | ------------- | --- |
+|     | YouTube Music |     |
+
 
 ## Install
 
@@ -58,22 +57,24 @@ npm run dev:firefox
 ```
 
 1. Wait for `Started dev server @ http://localhost:3000`.
-2. Firefox opens (or go to **`about:debugging`** → **This Firefox** → **Load Temporary Add-on**).
-3. Select **`.output/firefox-mv2/manifest.json`** inside the project folder.
+2. Firefox opens (or go to `**about:debugging**` → **This Firefox** → **Load Temporary Add-on**).
+3. Select `**.output/firefox-mv2/manifest.json`** inside the project folder.
 
 **Reload after changes**
 
-| What you changed | What to do |
-|------------------|------------|
-| Popup UI (`src/popup/`, styles) | Close and reopen the SongSphere popup |
-| Background / content scripts | **Reload** the extension in `about:debugging` |
-| `manifest` / `wxt.config.ts` | Stop dev (`Ctrl+C`), run `npm run dev:firefox` again, reload add-on |
+
+| What you changed                | What to do                                                          |
+| ------------------------------- | ------------------------------------------------------------------- |
+| Popup UI (`src/popup/`, styles) | Close and reopen the SongSphere popup                               |
+| Background / content scripts    | **Reload** the extension in `about:debugging`                       |
+| `manifest` / `wxt.config.ts`    | Stop dev (`Ctrl+C`), run `npm run dev:firefox` again, reload add-on |
+
 
 **Landing page (marketing site)**
 
-- http://localhost:3000/landing.html
-- http://localhost:3000/privacy.html
-- http://localhost:3000/license.html
+- [http://localhost:3000/landing.html](http://localhost:3000/landing.html)
+- [http://localhost:3000/privacy.html](http://localhost:3000/privacy.html)
+- [http://localhost:3000/license.html](http://localhost:3000/license.html)
 - Dev server must be running (`npm run dev` or `npm run dev:firefox`).
 
 **Popup dev note:** The popup loads from the Vite dev server. If you see connection errors, confirm the terminal is still running and the port is **3000**.
@@ -84,9 +85,9 @@ npm run dev:firefox
 npm run dev
 ```
 
-1. Open **`chrome://extensions`** (or `edge://extensions`).
+1. Open `**chrome://extensions**` (or `edge://extensions`).
 2. Enable **Developer mode**.
-3. **Load unpacked** → choose **`.output/chrome-mv3`** (created after dev starts).
+3. **Load unpacked** → choose `**.output/chrome-mv3`** (created after dev starts).
 
 Reload rules are the same as Firefox (popup vs background vs full restart).
 
@@ -102,8 +103,8 @@ This build **does not** need `npm run dev` running. Load it once and use it like
 npm run build:firefox
 ```
 
-1. **`about:debugging`** → **This Firefox** → **Load Temporary Add-on**.
-2. Select **`.output/firefox-mv2/manifest.json`**.
+1. `**about:debugging**` → **This Firefox** → **Load Temporary Add-on**.
+2. Select `**.output/firefox-mv2/manifest.json`**.
 
 The add-on stays loaded until you remove it or restart Firefox (temporary add-ons are cleared on Firefox restart unless you use a persistent dev setup).
 
@@ -115,8 +116,8 @@ For a **long-lived local install**, reload the same folder after each `npm run b
 npm run build
 ```
 
-1. **`chrome://extensions`** → Developer mode → **Load unpacked**.
-2. Folder: **`.output/chrome-mv3`**.
+1. `**chrome://extensions**` → Developer mode → **Load unpacked**.
+2. Folder: `**.output/chrome-mv3`**.
 
 Click **Reload** on the extension card after rebuilding.
 
@@ -132,22 +133,24 @@ npm run zip           # → Chrome MV3 zip
 ## Using SongSphere
 
 1. Open a supported player in a tab:
-   - [Spotify Web Player](https://open.spotify.com)
-   - [YouTube Music](https://music.youtube.com)
-   - [YouTube](https://www.youtube.com) (watch page with video playing)
-   - Other sites with HTML5 / Media Session (limited controls)
+  - [Spotify Web Player](https://open.spotify.com)
+  - [YouTube Music](https://music.youtube.com)
+  - [YouTube](https://www.youtube.com) (watch page with video playing)
+  - Other sites with HTML5 / Media Session (limited controls)
 2. Start playback on that tab.
 3. Click the **SongSphere** toolbar icon.
 4. Switch sessions with the bottom dots or chevrons; control playback from the popup.
 
 **Shortcuts** (when the browser has focus):
 
-| Shortcut | Action |
-|----------|--------|
-| Alt+Shift+P | Play / pause |
-| Alt+Shift+→ | Next track |
-| Alt+Shift+← | Previous track |
+
+| Shortcut    | Action                 |
+| ----------- | ---------------------- |
+| Alt+Shift+P | Play / pause           |
+| Alt+Shift+→ | Next track             |
+| Alt+Shift+← | Previous track         |
 | Alt+Shift+L | Like (where supported) |
+
 
 ---
 
@@ -172,7 +175,7 @@ Docs: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) · [PRIVACY.md](PRIVACY.md) �
 
 ## Troubleshooting
 
-**`NS_ERROR_CONNECTION_REFUSED` / popup blank in dev**  
+`**NS_ERROR_CONNECTION_REFUSED` / popup blank in dev**  
 Dev server is not running or the wrong port. Run `npm run dev:firefox` (or `npm run dev`) and leave it open. Use port **3000**.
 
 **Extension does nothing after install**  
@@ -188,4 +191,6 @@ In the popup console: `localStorage.setItem("songsphere:dev", "1")` then reopen 
 
 ## License
 
-MIT
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+Made with ❤️ by Aaron Kurian Abraham
