@@ -87,7 +87,18 @@ export default defineConfig({
         description: "Toggle like",
       },
     },
-    browser_specific_settings: { gecko: { id: "songsphere@local.dev" } },
+    ...(browser === "firefox"
+      ? {
+          browser_specific_settings: {
+            gecko: {
+              id: "songsphere@aaron.dev",
+              data_collection_permissions: {
+                required: ["none"],
+              },
+            },
+          },
+        }
+      : {}),
     web_accessible_resources: [
       {
         resources: ["/songsphere-main-runtime.js"],

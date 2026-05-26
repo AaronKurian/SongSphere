@@ -49,7 +49,7 @@ Place files in `docs/store/screenshots/` before submission.
 
 ## Firefox AMO
 
-Replace `browser_specific_settings.gecko.id` in `wxt.config.ts` with your AMO add-on ID before release (`songsphere@local.dev` is for local dev only).
+AMO add-on ID is set in `wxt.config.ts` as `songsphere@aaron.dev` (must match addons.mozilla.org). `data_collection_permissions` is declared with empty `required` and `optional` arrays (no data collection).
 
 ## Chrome Web Store
 
