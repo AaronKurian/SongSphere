@@ -21,7 +21,9 @@ The previous Gallery used markdown tables with plain text placeholders, so nothi
 Use an HTML table + <img> tags for reliable multi-column layout on GitHub.
 -->
 
-<table>
+<div align="center">
+
+<table style="margin-left:auto;margin-right:auto;">
   <tr>
     <th>Youtube</th>
     <th>Spotify</th>
@@ -39,6 +41,8 @@ Use an HTML table + <img> tags for reliable multi-column layout on GitHub.
     </td>
   </tr>
 </table>
+
+</div>
 
 ## Install
 
