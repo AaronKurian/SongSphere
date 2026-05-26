@@ -14,36 +14,6 @@ Built with **WXT · React · TypeScript · Tailwind · Zustand**.
 - Chrome and Firefox builds
 - Local-only - no backend, no analytics
 
-## Gallery
-
-<!--
-The previous Gallery used markdown tables with plain text placeholders, so nothing rendered.
-Use an HTML table + <img> tags for reliable multi-column layout on GitHub.
--->
-
-<div align="center">
-
-<table style="margin-left:auto;margin-right:auto;">
-  <tr>
-    <th>Youtube</th>
-    <th>Spotify</th>
-    <th>YouTube Music</th>
-  </tr>
-  <tr>
-    <td align="center">
-      <img src="docs/imgs/ss1.png" alt="SongSphere screenshot 1 (Spotify)" width="260" />
-    </td>
-    <td align="center">
-      <img src="docs/imgs/ss2.png" alt="SongSphere screenshot 2 (YouTube)" width="260" />
-    </td>
-    <td align="center">
-      <img src="docs/imgs/ss3.png" alt="SongSphere screenshot 3 (YouTube Music)" width="260" />
-    </td>
-  </tr>
-</table>
-
-</div>
-
 ## Install
 
 ```bash
@@ -84,11 +54,9 @@ npm run dev:firefox
 | Background / content scripts    | **Reload** the extension in `about:debugging`                       |
 | `manifest` / `wxt.config.ts`    | Stop dev (`Ctrl+C`), run `npm run dev:firefox` again, reload add-on |
 
-**Landing page (marketing site)**
+**Landing page**
 
 - [http://localhost:3000/landing.html](http://localhost:3000/landing.html)
-- [http://localhost:3000/privacy.html](http://localhost:3000/privacy.html)
-- [http://localhost:3000/license.html](http://localhost:3000/license.html)
 - Dev server must be running (`npm run dev` or `npm run dev:firefox`).
 
 **Popup dev note:** The popup loads from the Vite dev server. If you see connection errors, confirm the terminal is still running and the port is **3000**.
@@ -182,6 +150,38 @@ assets/              # Branding (songsphere.png, etc.)
 ```
 
 Docs: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) · [PRIVACY.md](PRIVACY.md) · [docs/STORE.md](docs/STORE.md)
+
+---
+
+## Gallery
+
+<!--
+The previous Gallery used markdown tables with plain text placeholders, so nothing rendered.
+Use an HTML table + <img> tags for reliable multi-column layout on GitHub.
+-->
+
+<div align="center">
+
+<table style="margin-left:auto;margin-right:auto;">
+  <tr>
+    <th>Youtube</th>
+    <th>Spotify</th>
+    <th>YouTube Music</th>
+  </tr>
+  <tr>
+    <td align="center">
+      <img src="docs/imgs/ss1.png" alt="SongSphere - Youtube" width="260" />
+    </td>
+    <td align="center">
+      <img src="docs/imgs/ss2.png" alt="SongSphere - Spotify" width="260" />
+    </td>
+    <td align="center">
+      <img src="docs/imgs/ss3.png" alt="SongSphere - YouTube Music" width="260" />
+    </td>
+  </tr>
+</table>
+
+</div>
 
 ---
 
